@@ -6,7 +6,7 @@ api_key = open("api.json", "r").read()
 
 youtube_videos = []
 def search_videos(term):
-    url = f"https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q={search_term}&relevanceLanguage=en&type=video&key={api_key}"
+    url = f"https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q={term}&relevanceLanguage=en&type=video&key={api_key}"
     r = get(url)
     content = r.json()
 
@@ -51,8 +51,8 @@ def trim_tags():
         else:
             break
 
-def write_tags():
-    with open(f"{search_term}.txt", "w") as f:
+def write_tags(term):
+    with open(f"{term}.txt", "w") as f:
         for tag in final_tags:
             try:
                 f.write(f"{tag},")
@@ -65,7 +65,7 @@ def main():
     get_tags()
     sort_tags()
     trim_tags()
-    write_tags()
+    write_tags(search_term)
 
     another_search = inputYesNo(prompt="Would you like to search tags again? (y/n)\n")
     if another_search == "yes":
