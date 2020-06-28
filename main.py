@@ -6,7 +6,7 @@ api_key = open("api.json", "r").read()
 
 youtube_videos = []
 def search_videos(term):
-    url = f"https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q={term}&relevanceLanguage=en&type=video&key={api_key}"
+    url = f"https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q={term}&relevanceLanguage=en&type=video&key={api_key}"
     r = get(url)
     content = r.json()
 
@@ -59,6 +59,7 @@ def write_tags(term):
             except UnicodeEncodeError:
                 continue
 
+
 def main():
     search_term = input("Insert term: ")
     search_videos(search_term)
@@ -69,6 +70,10 @@ def main():
 
     another_search = inputYesNo(prompt="Would you like to search tags again? (y/n)\n")
     if another_search == "yes":
+        del youtube_videos[:]
+        del tags[:]
+        del sorted_tags[:]
+        del final_tags[:]
         main()
     else:
         exit()
