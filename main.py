@@ -2,11 +2,10 @@ from requests import get
 from pyinputplus import inputYesNo
 from sys import exit
 
-search_term = input("Insert term: ")
 api_key = open("api.json", "r").read()
 
 youtube_videos = []
-def search_videos():
+def search_videos(term):
     url = f"https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q={search_term}&relevanceLanguage=en&type=video&key={api_key}"
     r = get(url)
     content = r.json()
@@ -61,7 +60,8 @@ def write_tags():
                 continue
 
 def main():
-    search_videos()
+    search_term = input("Insert term: ")
+    search_videos(search_term)
     get_tags()
     sort_tags()
     trim_tags()
